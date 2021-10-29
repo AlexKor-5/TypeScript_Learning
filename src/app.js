@@ -14,4 +14,10 @@ window.onload = function () {
     myClass.render("content", "Hello World");
     console.log("test");
 };
+function cul(a, b, c) {
+    return a + b + c;
+}
+// console.log(cul(1, 2, 3));
+var complexType = { name: "myName", id: 1 };
+complexType = { name: "Alex", id: 2 };
 //# sourceMappingURL=app.js.map

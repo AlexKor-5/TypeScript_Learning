@@ -12,3 +12,12 @@ window.onload = () => {
     myClass.render("content", "Hello World");
     console.log(`test`);
 }
+
+function cul(a: number, b: number, c: number) {
+    return a + b + c
+}
+
+// console.log(cul(1, 2, 3));
+
+let complexType = {name: "myName", id: 1};
+complexType = {name: "Alex", id: 2}
