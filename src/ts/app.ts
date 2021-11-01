@@ -1,13 +1,14 @@
 console.log("--- Typescript File ---")
-const printSurname = function (sur: string): string {
-    return sur
+
+type callbackString = () => string
+function printt(name: string, addToPrint: callbackString): void {
+    console.log(`${name}`);
+    console.log(addToPrint());
 }
 
-const myFun = (name: string, callback: () => string): void => {
-    console.log(name)
-    console.log(callback())
+function addToPrint(myString: string): string {
+    return myString
 }
 
-// myFun("Alex", () => printSurname("Kor"))
+printt("Alex", () => addToPrint("Mob"))
 
-myFun("Alex", () => printSurname("Kor"))

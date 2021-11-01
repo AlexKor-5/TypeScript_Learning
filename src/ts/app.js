@@ -1,11 +1,10 @@
 console.log("--- Typescript File ---");
-var printSurname = function (sur) {
-    return sur;
-};
-var myFun = function (name, callback) {
-    console.log(name);
-    console.log(callback());
-};
-// myFun("Alex", () => printSurname("Kor"))
-myFun("Alex", function () { return printSurname("Kor"); });
+function printt(name, addToPrint) {
+    console.log("" + name);
+    console.log(addToPrint());
+}
+function addToPrint(myString) {
+    return myString;
+}
+printt("Alex", function () { return addToPrint("Mob"); });
 //# sourceMappingURL=app.js.map
