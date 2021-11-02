@@ -1,14 +1,11 @@
 console.log("--- Typescript File ---")
 
-type callbackString = () => string
-function printt(name: string, addToPrint: callbackString): void {
-    console.log(`${name}`);
-    console.log(addToPrint());
+interface MyInterface {
+    id: number
+    name: string
+    surname: string
+    age: number
 }
 
-function addToPrint(myString: string): string {
-    return myString
-}
-
-printt("Alex", () => addToPrint("Mob"))
-
+let person: MyInterface = {id: 12, name: "Alex", surname: "Kor", age: 12}
+console.log(person);

@@ -1,10 +1,4 @@
 console.log("--- Typescript File ---");
-function printt(name, addToPrint) {
-    console.log("" + name);
-    console.log(addToPrint());
-}
-function addToPrint(myString) {
-    return myString;
-}
-printt("Alex", function () { return addToPrint("Mob"); });
+var person = { id: 12, name: "Alex", surname: "Kor", age: 12 };
+console.log(person);
 //# sourceMappingURL=app.js.map
