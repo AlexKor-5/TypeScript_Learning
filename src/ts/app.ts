@@ -140,3 +140,73 @@ console.log(`ct_2 = ${JSON.stringify(ct_2, undefined, 2)}`);
 const myCallbackFunction = (id: number): string => id.toString()
 ct_1.usingFunctionCallbacks(myCallbackFunction);
 console.log(` = ${JSON.stringify(ct_1, undefined, 2)}`);
+console.clear()
+
+///////////////////////////////////////
+
+class ClassWithPublicProperty {
+    public id: number | undefined;
+}
+
+let publicAccess = new ClassWithPublicProperty();
+publicAccess.id = 10;
+
+// console.log(`publicAccess = ${JSON.stringify(publicAccess, undefined, 2)}`);
+
+class classWithAutomaticProperties {
+    constructor(
+        public id: number,
+        private name: string) {
+    }
+}
+
+let myAutoClass = new classWithAutomaticProperties(1, "className");
+
+// console.log(`myAutoClass = ${JSON.stringify(myAutoClass, undefined, 2)}`);
+
+class StaticProperty {
+    static count = 0;
+    public name: string = "Mike"
+
+    updateCount() {
+        StaticProperty.count++;
+    }
+
+    static printToConsole(): void {
+        console.log("Hello console from print method")
+    }
+}
+
+const obj = new StaticProperty()
+// console.log(`obj = ${JSON.stringify(obj, undefined, 2)}`);
+obj.updateCount()
+
+
+////////////// Namespaces /////////
+namespace FirstNameSpace {
+    class NotExported {
+    }
+
+    export class NameSpaceClass {
+        constructor(
+            public id: number | undefined) {
+        }
+    }
+
+    const something = new NotExported() // possible only here because of absence of export in class defining
+}
+
+let firstNameSpace = new FirstNameSpace.NameSpaceClass(1234);
+console.log(`firstNameSpace = ${JSON.stringify(firstNameSpace, undefined, 2)}`);
+
+
+namespace SecondNameSpace {
+    export class NameSpaceClass {
+        constructor(
+            public name: string | undefined) {
+        }
+    }
+}
+
+const secondNameSpace = new SecondNameSpace.NameSpaceClass("Alex")
+console.log(`secondNameSpace = ${JSON.stringify(secondNameSpace, undefined, 2)}`);

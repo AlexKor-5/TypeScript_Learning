@@ -83,4 +83,70 @@ console.log("ct_2 = " + JSON.stringify(ct_2, undefined, 2));
 var myCallbackFunction = function (id) { return id.toString(); };
 ct_1.usingFunctionCallbacks(myCallbackFunction);
 console.log(" = " + JSON.stringify(ct_1, undefined, 2));
+console.clear();
+///////////////////////////////////////
+var ClassWithPublicProperty = /** @class */ (function () {
+    function ClassWithPublicProperty() {
+    }
+    return ClassWithPublicProperty;
+}());
+var publicAccess = new ClassWithPublicProperty();
+publicAccess.id = 10;
+// console.log(`publicAccess = ${JSON.stringify(publicAccess, undefined, 2)}`);
+var classWithAutomaticProperties = /** @class */ (function () {
+    function classWithAutomaticProperties(id, name) {
+        this.id = id;
+        this.name = name;
+    }
+    return classWithAutomaticProperties;
+}());
+var myAutoClass = new classWithAutomaticProperties(1, "className");
+// console.log(`myAutoClass = ${JSON.stringify(myAutoClass, undefined, 2)}`);
+var StaticProperty = /** @class */ (function () {
+    function StaticProperty() {
+        this.name = "Mike";
+    }
+    StaticProperty.prototype.updateCount = function () {
+        StaticProperty.count++;
+    };
+    StaticProperty.printToConsole = function () {
+        console.log("Hello console from print method");
+    };
+    StaticProperty.count = 0;
+    return StaticProperty;
+}());
+var obj = new StaticProperty();
+// console.log(`obj = ${JSON.stringify(obj, undefined, 2)}`);
+obj.updateCount();
+////////////// Namespaces /////////
+var FirstNameSpace;
+(function (FirstNameSpace) {
+    var NotExported = /** @class */ (function () {
+        function NotExported() {
+        }
+        return NotExported;
+    }());
+    var NameSpaceClass = /** @class */ (function () {
+        function NameSpaceClass(id) {
+            this.id = id;
+        }
+        return NameSpaceClass;
+    }());
+    FirstNameSpace.NameSpaceClass = NameSpaceClass;
+    var something = new NotExported(); // possible only here because of absence of export in class defining
+})(FirstNameSpace || (FirstNameSpace = {}));
+var firstNameSpace = new FirstNameSpace.NameSpaceClass(1234);
+console.log("firstNameSpace = " + JSON.stringify(firstNameSpace, undefined, 2));
+var SecondNameSpace;
+(function (SecondNameSpace) {
+    var NameSpaceClass = /** @class */ (function () {
+        function NameSpaceClass(name) {
+            this.name = name;
+        }
+        return NameSpaceClass;
+    }());
+    SecondNameSpace.NameSpaceClass = NameSpaceClass;
+})(SecondNameSpace || (SecondNameSpace = {}));
+var secondNameSpace = new SecondNameSpace.NameSpaceClass("Alex");
+console.log("secondNameSpace = " + JSON.stringify(secondNameSpace, undefined, 2));
 //# sourceMappingURL=app.js.map
