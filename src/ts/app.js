@@ -14,24 +14,43 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 console.log("--- Typescript File ---");
-///////// .... /////////
-var ClassUsingProtected = /** @class */ (function () {
-    function ClassUsingProtected() {
+///////// ..Abstract class.. /////////
+var AbstractEmployee = /** @class */ (function () {
+    function AbstractEmployee() {
     }
-    ClassUsingProtected.prototype.getId = function () {
-        return this.id;
+    AbstractEmployee.prototype.printDetails = function () {
+        console.log(this.getDetails());
     };
-    return ClassUsingProtected;
+    return AbstractEmployee;
 }());
-var DerivedFromProtected = /** @class */ (function (_super) {
-    __extends(DerivedFromProtected, _super);
-    function DerivedFromProtected() {
-        var _this = _super.call(this) || this;
-        _this.id = 0;
-        return _this;
+var NewEmployee = /** @class */ (function (_super) {
+    __extends(NewEmployee, _super);
+    function NewEmployee() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
-    return DerivedFromProtected;
-}(ClassUsingProtected));
-var derivedFromProtected = new DerivedFromProtected();
-// derivedFromProtected.id = 1; // nope, accessible only inside derived class from the base class or inside the base one 
+    NewEmployee.prototype.getDetails = function () {
+        return "id : " + this.id + ", name : " + this.name;
+    };
+    return NewEmployee;
+}(AbstractEmployee));
+var NewManager = /** @class */ (function (_super) {
+    __extends(NewManager, _super);
+    function NewManager() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    NewManager.prototype.getDetails = function () {
+        return _super.prototype.getDetails.call(this)
+            + (", employeeCount " + this.Employees.length);
+    };
+    return NewManager;
+}(NewEmployee));
+var employee = new NewEmployee();
+employee.id = 1;
+employee.name = "Employee Name";
+employee.printDetails();
+var manager = new NewManager();
+manager.id = 2;
+manager.name = "Manager Name";
+manager.Employees = [];
+manager.printDetails();
 //# sourceMappingURL=app.js.map
