@@ -1,47 +1,21 @@
 console.log("--- Typescript File ---")
 
-///////// super /////////
-class BaseClassWithConstructor {
-    private id: number;
+///////// .... /////////
 
-    constructor(_id: number) {
-        this.id = _id;
+class ClassUsingProtected {
+    protected id: number | undefined;
+
+    public getId() {
+        return this.id;
     }
 }
 
-class DerivedClassWithConstructor extends BaseClassWithConstructor {
-    private name: string;
-
-    constructor(_id: number, _name: string) {
-        super(_id);
-        this.name = _name;
+class DerivedFromProtected extends ClassUsingProtected {
+    constructor() {
+        super();
+        this.id = 0;
     }
 }
 
-const obj = new DerivedClassWithConstructor(1234, "Alex")
-
-console.log(`obj = ${JSON.stringify(obj, undefined, 2)}`);
-
-////////////////////////////////////////////////////////////////////////
-
-
-class BaseClassWithFunction {
-    public id: number | undefined;
-
-    getProperties(): string {
-        return `id: ${this.id}`;
-    }
-}
-
-class DerivedClassWithFunction extends BaseClassWithFunction {
-    public name: string | undefined;
-
-    getProperties(): string {
-        return `${super.getProperties()}` + ` , name: ${this.name}`;
-    }
-}
-
-const derivedClassWithFunction = new DerivedClassWithFunction();
-derivedClassWithFunction.id = 1;
-derivedClassWithFunction.name = "derivedName";
-console.log(derivedClassWithFunction.getProperties());
+const derivedFromProtected = new DerivedFromProtected();
+// derivedFromProtected.id = 1; // nope, accessible only inside derived class from the base class or inside the base one

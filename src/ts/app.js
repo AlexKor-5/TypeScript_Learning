@@ -14,45 +14,24 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 console.log("--- Typescript File ---");
-///////// super /////////
-var BaseClassWithConstructor = /** @class */ (function () {
-    function BaseClassWithConstructor(_id) {
-        this.id = _id;
+///////// .... /////////
+var ClassUsingProtected = /** @class */ (function () {
+    function ClassUsingProtected() {
     }
-    return BaseClassWithConstructor;
+    ClassUsingProtected.prototype.getId = function () {
+        return this.id;
+    };
+    return ClassUsingProtected;
 }());
-var DerivedClassWithConstructor = /** @class */ (function (_super) {
-    __extends(DerivedClassWithConstructor, _super);
-    function DerivedClassWithConstructor(_id, _name) {
-        var _this = _super.call(this, _id) || this;
-        _this.name = _name;
+var DerivedFromProtected = /** @class */ (function (_super) {
+    __extends(DerivedFromProtected, _super);
+    function DerivedFromProtected() {
+        var _this = _super.call(this) || this;
+        _this.id = 0;
         return _this;
     }
-    return DerivedClassWithConstructor;
-}(BaseClassWithConstructor));
-var obj = new DerivedClassWithConstructor(1234, "Alex");
-console.log("obj = " + JSON.stringify(obj, undefined, 2));
-////////////////////////////////////////////////////////////////////////
-var BaseClassWithFunction = /** @class */ (function () {
-    function BaseClassWithFunction() {
-    }
-    BaseClassWithFunction.prototype.getProperties = function () {
-        return "id: " + this.id;
-    };
-    return BaseClassWithFunction;
-}());
-var DerivedClassWithFunction = /** @class */ (function (_super) {
-    __extends(DerivedClassWithFunction, _super);
-    function DerivedClassWithFunction() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    DerivedClassWithFunction.prototype.getProperties = function () {
-        return "" + _super.prototype.getProperties.call(this) + (" , name: " + this.name);
-    };
-    return DerivedClassWithFunction;
-}(BaseClassWithFunction));
-var derivedClassWithFunction = new DerivedClassWithFunction();
-derivedClassWithFunction.id = 1;
-derivedClassWithFunction.name = "derivedName";
-console.log(derivedClassWithFunction.getProperties());
+    return DerivedFromProtected;
+}(ClassUsingProtected));
+var derivedFromProtected = new DerivedFromProtected();
+// derivedFromProtected.id = 1; // nope, accessible only inside derived class from the base class or inside the base one 
 //# sourceMappingURL=app.js.map
