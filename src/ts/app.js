@@ -14,27 +14,45 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 console.log("--- Typescript File ---");
-var InterfaceInheritanceClass = /** @class */ (function () {
-    function InterfaceInheritanceClass() {
+///////// super /////////
+var BaseClassWithConstructor = /** @class */ (function () {
+    function BaseClassWithConstructor(_id) {
+        this.id = _id;
     }
-    return InterfaceInheritanceClass;
+    return BaseClassWithConstructor;
 }());
-/////////////////////////////////////////////////////////
-var BaseClass = /** @class */ (function () {
-    function BaseClass() {
+var DerivedClassWithConstructor = /** @class */ (function (_super) {
+    __extends(DerivedClassWithConstructor, _super);
+    function DerivedClassWithConstructor(_id, _name) {
+        var _this = _super.call(this, _id) || this;
+        _this.name = _name;
+        return _this;
     }
-    return BaseClass;
+    return DerivedClassWithConstructor;
+}(BaseClassWithConstructor));
+var obj = new DerivedClassWithConstructor(1234, "Alex");
+console.log("obj = " + JSON.stringify(obj, undefined, 2));
+////////////////////////////////////////////////////////////////////////
+var BaseClassWithFunction = /** @class */ (function () {
+    function BaseClassWithFunction() {
+    }
+    BaseClassWithFunction.prototype.getProperties = function () {
+        return "id: " + this.id;
+    };
+    return BaseClassWithFunction;
 }());
-var DerivedFromBaseClass = /** @class */ (function (_super) {
-    __extends(DerivedFromBaseClass, _super);
-    function DerivedFromBaseClass() {
+var DerivedClassWithFunction = /** @class */ (function (_super) {
+    __extends(DerivedClassWithFunction, _super);
+    function DerivedClassWithFunction() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    return DerivedFromBaseClass;
-}(BaseClass));
-var MultipleInterfaces = /** @class */ (function () {
-    function MultipleInterfaces() {
-    }
-    return MultipleInterfaces;
-}());
+    DerivedClassWithFunction.prototype.getProperties = function () {
+        return "" + _super.prototype.getProperties.call(this) + (" , name: " + this.name);
+    };
+    return DerivedClassWithFunction;
+}(BaseClassWithFunction));
+var derivedClassWithFunction = new DerivedClassWithFunction();
+derivedClassWithFunction.id = 1;
+derivedClassWithFunction.name = "derivedName";
+console.log(derivedClassWithFunction.getProperties());
 //# sourceMappingURL=app.js.map

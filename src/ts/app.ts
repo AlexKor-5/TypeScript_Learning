@@ -1,39 +1,47 @@
 console.log("--- Typescript File ---")
 
-///////// interface inheritance /////////
+///////// super /////////
+class BaseClassWithConstructor {
+    private id: number;
 
-interface IBase {
-    id: number | undefined;
+    constructor(_id: number) {
+        this.id = _id;
+    }
 }
 
-interface IDerivedFromBase extends IBase {
-    name: string | undefined;
+class DerivedClassWithConstructor extends BaseClassWithConstructor {
+    private name: string;
+
+    constructor(_id: number, _name: string) {
+        super(_id);
+        this.name = _name;
+    }
 }
 
-class InterfaceInheritanceClass implements IDerivedFromBase {
-    id: number | undefined;
-    name: string | undefined;
-}
-/////////////////////////////////////////////////////////
+const obj = new DerivedClassWithConstructor(1234, "Alex")
 
-class BaseClass implements IBase {
-    id: number | undefined;
-}
+console.log(`obj = ${JSON.stringify(obj, undefined, 2)}`);
 
-class DerivedFromBaseClass extends BaseClass implements IDerivedFromBase {
-    name: string | undefined;
-}
-//////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
 
-interface IFirstInterface {
-    id: number | undefined;
+
+class BaseClassWithFunction {
+    public id: number | undefined;
+
+    getProperties(): string {
+        return `id: ${this.id}`;
+    }
 }
 
-interface ISecondInterface {
-    name: string | undefined;
+class DerivedClassWithFunction extends BaseClassWithFunction {
+    public name: string | undefined;
+
+    getProperties(): string {
+        return `${super.getProperties()}` + ` , name: ${this.name}`;
+    }
 }
 
-class MultipleInterfaces  implements IFirstInterface, ISecondInterface {
-    id: number | undefined;
-    name: string | undefined;
-}
+const derivedClassWithFunction = new DerivedClassWithFunction();
+derivedClassWithFunction.id = 1;
+derivedClassWithFunction.name = "derivedName";
+console.log(derivedClassWithFunction.getProperties());
