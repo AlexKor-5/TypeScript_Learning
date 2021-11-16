@@ -1,21 +1,28 @@
 console.log("--- Typescript File ---")
 
-///////// .... /////////
+const simpleDecorator = (constructor: Function) => {
+    console.log('simpleDecorator called.');
+}
 
-class ClassUsingProtected {
-    protected id: number | undefined;
+function secondDecorator(constructor: Function) {
+    console.log('secondDecorator called.')
+}
 
-    public getId() {
-        return this.id;
+function decoratorFactory(name: string) {
+    return function (constructor: Function) {
+        console.log(`decorator function called with : ${name}`);
     }
 }
 
-class DerivedFromProtected extends ClassUsingProtected {
-    constructor() {
-        super();
-        this.id = 0;
-    }
+@simpleDecorator
+@secondDecorator
+@decoratorFactory("Alex")
+class ClassWithSimpleDecorator {
+
 }
 
-const derivedFromProtected = new DerivedFromProtected();
-// derivedFromProtected.id = 1; // nope, accessible only inside derived class from the base class or inside the base one
+// const instance_1 = new ClassWithSimpleDecorator();
+// const instance_2 = new ClassWithSimpleDecorator();
+//
+// console.log(`instance_1 : ${JSON.stringify(instance_1)}`);
+// console.log(`instance_2 : ${JSON.stringify(instance_2)}`);

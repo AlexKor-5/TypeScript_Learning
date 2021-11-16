@@ -1,56 +1,34 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 console.log("--- Typescript File ---");
-///////// ..Abstract class.. /////////
-var AbstractEmployee = /** @class */ (function () {
-    function AbstractEmployee() {
-    }
-    AbstractEmployee.prototype.printDetails = function () {
-        console.log(this.getDetails());
+var simpleDecorator = function (constructor) {
+    console.log('simpleDecorator called.');
+};
+function secondDecorator(constructor) {
+    console.log('secondDecorator called.');
+}
+function decoratorFactory(name) {
+    return function (constructor) {
+        console.log("decorator function called with : " + name);
     };
-    return AbstractEmployee;
+}
+var ClassWithSimpleDecorator = /** @class */ (function () {
+    function ClassWithSimpleDecorator() {
+    }
+    ClassWithSimpleDecorator = __decorate([
+        simpleDecorator,
+        secondDecorator,
+        decoratorFactory("Alex")
+    ], ClassWithSimpleDecorator);
+    return ClassWithSimpleDecorator;
 }());
-var NewEmployee = /** @class */ (function (_super) {
-    __extends(NewEmployee, _super);
-    function NewEmployee() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    NewEmployee.prototype.getDetails = function () {
-        return "id : " + this.id + ", name : " + this.name;
-    };
-    return NewEmployee;
-}(AbstractEmployee));
-var NewManager = /** @class */ (function (_super) {
-    __extends(NewManager, _super);
-    function NewManager() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    NewManager.prototype.getDetails = function () {
-        return _super.prototype.getDetails.call(this)
-            + (", employeeCount " + this.Employees.length);
-    };
-    return NewManager;
-}(NewEmployee));
-var employee = new NewEmployee();
-employee.id = 1;
-employee.name = "Employee Name";
-employee.printDetails();
-var manager = new NewManager();
-manager.id = 2;
-manager.name = "Manager Name";
-manager.Employees = [];
-manager.printDetails();
-//# sourceMappingURL=app.js.map
+// const instance_1 = new ClassWithSimpleDecorator();
+// const instance_2 = new ClassWithSimpleDecorator();
+//
+// console.log(`instance_1 : ${JSON.stringify(instance_1)}`);
+// console.log(`instance_2 : ${JSON.stringify(instance_2)}`);
