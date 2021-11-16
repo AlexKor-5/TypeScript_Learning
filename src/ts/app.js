@@ -6,29 +6,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 console.log("--- Typescript File ---");
-var simpleDecorator = function (constructor) {
-    console.log('simpleDecorator called.');
-};
-function secondDecorator(constructor) {
-    console.log('secondDecorator called.');
+function classConstructorDec(constructor) {
+    console.log("constructor : " + constructor);
+    console.log("constructor.name : " + constructor.name);
+    constructor.prototype.testProperty = "testProperty_value";
 }
-function decoratorFactory(name) {
-    return function (constructor) {
-        console.log("decorator function called with : " + name);
-    };
-}
-var ClassWithSimpleDecorator = /** @class */ (function () {
-    function ClassWithSimpleDecorator() {
+var ClassWithConstructor = /** @class */ (function () {
+    function ClassWithConstructor() {
     }
-    ClassWithSimpleDecorator = __decorate([
-        simpleDecorator,
-        secondDecorator,
-        decoratorFactory("Alex")
-    ], ClassWithSimpleDecorator);
-    return ClassWithSimpleDecorator;
+    ClassWithConstructor = __decorate([
+        classConstructorDec
+    ], ClassWithConstructor);
+    return ClassWithConstructor;
 }());
-// const instance_1 = new ClassWithSimpleDecorator();
-// const instance_2 = new ClassWithSimpleDecorator();
-//
-// console.log(`instance_1 : ${JSON.stringify(instance_1)}`);
-// console.log(`instance_2 : ${JSON.stringify(instance_2)}`);
+var classConstrInstance = new ClassWithConstructor();
+console.log(classConstrInstance.testProperty);

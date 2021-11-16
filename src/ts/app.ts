@@ -1,28 +1,16 @@
 console.log("--- Typescript File ---")
 
-const simpleDecorator = (constructor: Function) => {
-    console.log('simpleDecorator called.');
-}
-
-function secondDecorator(constructor: Function) {
-    console.log('secondDecorator called.')
-}
-
-function decoratorFactory(name: string) {
-    return function (constructor: Function) {
-        console.log(`decorator function called with : ${name}`);
-    }
-}
-
-@simpleDecorator
-@secondDecorator
-@decoratorFactory("Alex")
-class ClassWithSimpleDecorator {
+function classConstructorDec(constructor: Function) {
+    console.log(`constructor : ${constructor}`);
+    console.log(`constructor.name : ${(<any>constructor).name}`);
+    constructor.prototype.testProperty = "testProperty_value";
 
 }
 
-// const instance_1 = new ClassWithSimpleDecorator();
-// const instance_2 = new ClassWithSimpleDecorator();
-//
-// console.log(`instance_1 : ${JSON.stringify(instance_1)}`);
-// console.log(`instance_2 : ${JSON.stringify(instance_2)}`);
+@classConstructorDec
+class ClassWithConstructor {
+
+}
+let classConstrInstance = new ClassWithConstructor();
+
+console.log((<any>classConstrInstance).testProperty);
