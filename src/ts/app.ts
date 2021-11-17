@@ -1,16 +1,24 @@
 console.log("--- Typescript File ---")
 
-function classConstructorDec(constructor: Function) {
-    console.log(`constructor : ${constructor}`);
-    console.log(`constructor.name : ${(<any>constructor).name}`);
-    constructor.prototype.testProperty = "testProperty_value";
-
+function auditLogDec(target: any, methodName: string, descriptor?: PropertyDescriptor) {
+    const originalFunction = target[methodName];
+    const auditFunction = function (this: any) {
+        console.log(`auditLogDec : overide of ${methodName} called`);
+        for (let i = 0; i < arguments.length; i++) {
+            console.log(`arg : ${i} = ${arguments[i]}`);
+        }
+        originalFunction.apply(this, arguments);
+    }
+    target[methodName] = auditFunction;
+    return target;
 }
 
-@classConstructorDec
-class ClassWithConstructor {
-
+class ClassWithAuditDec {
+    @auditLogDec print(arg1: string, arg2: string) {
+        console.log(`ClassWithMethodDec.print`
+            + `(${arg1}, ${arg2}) called.`);
+    }
 }
-let classConstrInstance = new ClassWithConstructor();
 
-console.log((<any>classConstrInstance).testProperty);
+let auditClass = new ClassWithAuditDec();
+auditClass.print("test1", "test2");
